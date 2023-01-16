@@ -38,22 +38,6 @@ routes.delete('/barber/:id', deleteBarberController.handle)
 routes.get('/schedules/:barber_id', getSchedulesController.handle)
 routes.post('/schedules', createScheduleController.handle)
 
-routes.get('/schedules/:barber_id', async (req, res) => {
-  const { barber_id } = req.params
-
-  const schedules = await prisma.barber_Schedules.findMany({
-    where: {
-      barber_id: {
-        equals: barber_id
-      }
-    }
-  })
-
-  res.json({
-    schedules
-  })
-})
-
 routes.delete('/schedules/:id', validateBarberId, async (req, res) => {
   const id = req.params.id
 
