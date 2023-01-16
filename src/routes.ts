@@ -7,6 +7,7 @@ import {
   deleteBarberController,
   getBarberController,
   getBarbersController,
+  getSchedulesController,
   updateBarberController
 } from './controllers'
 import { Schedule } from './domain/entities/schedule';
@@ -34,6 +35,7 @@ routes.post('/barber', createBarberController.handle)
 routes.put('/barber/:id', updateBarberController.handle)
 routes.delete('/barber/:id', deleteBarberController.handle)
 
+routes.get('/schedules/:barber_id', getSchedulesController.handle)
 routes.post('/schedules', createScheduleController.handle)
 
 routes.get('/schedules/:barber_id', async (req, res) => {
@@ -51,40 +53,6 @@ routes.get('/schedules/:barber_id', async (req, res) => {
     schedules
   })
 })
-
-// routes.post('/schedules', async (req, res) => {
-//   const { barber_id } = req.body
-
-//   const hours = [
-//     { barber_id, hour: '09:00' },
-//     { barber_id, hour: '09:30' },
-//     { barber_id, hour: '10:00' },
-//     { barber_id, hour: '10:30' },
-//     { barber_id, hour: '11:00' },
-//     { barber_id, hour: '11:30' },
-//     { barber_id, hour: '12:00' },
-//     { barber_id, hour: '12:30' },
-//     { barber_id, hour: '13:00' },
-//     { barber_id, hour: '13:30' },
-//     { barber_id, hour: '14:00' },
-//     { barber_id, hour: '14:30' },
-//     { barber_id, hour: '15:00' },
-//     { barber_id, hour: '15:30' },
-//     { barber_id, hour: '16:00' },
-//     { barber_id, hour: '16:30' },
-//     { barber_id, hour: '17:00' },
-//     { barber_id, hour: '17:30' },
-//     { barber_id, hour: '18:00' },
-//     { barber_id, hour: '18:30' },
-//     { barber_id, hour: '19:00' }
-//   ]
-
-//   const schedules = await prisma.barber_Schedules.createMany({
-//     data: hours
-//   })
-
-//   return res.json(schedules)
-// })
 
 routes.delete('/schedules/:id', validateBarberId, async (req, res) => {
   const id = req.params.id
