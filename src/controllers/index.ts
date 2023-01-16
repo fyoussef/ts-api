@@ -4,6 +4,7 @@ import { GetBarberController } from "./barber/get-barber-controller"
 import { GetBarbersController } from "./barber/get-barbers-controller"
 import { UpdateBarberController } from "./barber/update-barber-controller"
 import { CreateScheduleController } from "./schedules/create-schedules-controller"
+import { DeleteScheduleController } from "./schedules/delete-schedules-controller"
 import { GetScheduleController } from "./schedules/get-schedules-controller"
 
 
@@ -15,3 +16,4 @@ export const deleteBarberController = new DeleteBarberController()
 
 export const createScheduleController = new CreateScheduleController()
 export const getSchedulesController = new GetScheduleController()
+export const deleteScheduleController = new DeleteScheduleController()
