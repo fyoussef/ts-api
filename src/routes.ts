@@ -40,18 +40,4 @@ routes.get('/schedules/:barber_id', getSchedulesController.handle)
 routes.post('/schedules', createScheduleController.handle)
 routes.delete('/schedules/:barber_id', deleteScheduleController.handle)
 
-// routes.delete('/schedules/:id', validateBarberId, async (req, res) => {
-//   const id = req.params.id
-
-//   const deleted = await prisma.barber_Schedules.deleteMany({
-//     where: {
-//       barber_id: {
-//         equals: id
-//       }
-//     }
-//   })
-
-//   res.json(deleted)
-// })
-
 export { routes }
