@@ -11,7 +11,7 @@ export class DeleteScheduleController {
 
     await deleteScheduleUseCase.execute(barber_id)
 
-    return res.status(202).json({
+    return res.status(204).json({
       msg: 'Barber schedule has been deleted'
     })
   }

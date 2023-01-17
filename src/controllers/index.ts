@@ -7,6 +7,7 @@ import { CreateScheduleController } from "./schedules/create-schedules-controlle
 import { DeleteScheduleController } from "./schedules/delete-schedules-controller"
 import { GetScheduleController } from "./schedules/get-schedules-controller"
 import { CreateUserController } from "./user/create-user-controller"
+import { DeleteUserController } from "./user/delete-user-controller"
 
 
 export const createBarberController = new CreateBarberController()
@@ -20,3 +21,4 @@ export const getSchedulesController = new GetScheduleController()
 export const deleteScheduleController = new DeleteScheduleController()
 
 export const createUserController = new CreateUserController()
+export const deleteUserController = new DeleteUserController()

@@ -7,6 +7,7 @@ import {
   createUserController,
   deleteBarberController,
   deleteScheduleController,
+  deleteUserController,
   getBarberController,
   getBarbersController,
   getSchedulesController,
@@ -40,5 +41,6 @@ routes.post('/schedules', createScheduleController.handle)
 routes.delete('/schedules/:barber_id', deleteScheduleController.handle)
 
 routes.post('/user', createUserController.handle)
+routes.delete('/user/:id', deleteUserController.handle)
 
 export { routes }
