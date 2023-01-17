@@ -25,9 +25,7 @@ function validateBarberId(req: Request, res: Response, next: NextFunction) {
 }
 
 routes.get('/', (req, res) => {
-  const { barber_id, start_hour, end_hour, interval }: any = req.body
-  const schedule = new Schedule().calculateHours(barber_id, start_hour, end_hour, interval)
-  return res.status(200).json({ schedule })
+  return res.status(200).json({ msg: 'RODANDOO' })
 })
 
 routes.get('/barber', getBarbersController.handle)
