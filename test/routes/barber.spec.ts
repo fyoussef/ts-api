@@ -6,6 +6,7 @@ describe('Test route to create barber', () => {
   
   it('should create barber', async () => {
     const { data } = await api.post('/barber', {name: 'Youssef'})
+
     barber = data
     
     expect(barber).not.toBeUndefined()
