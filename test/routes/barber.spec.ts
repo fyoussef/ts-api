@@ -49,7 +49,7 @@ describe('Test route to create barber', () => {
     const { status, data } = res
 
     expect(data.msg).toBe('Barber has been deleted')
-    expect(status).toBeGreaterThan(200);
+    expect(status).toBeGreaterThanOrEqual(200);
     expect(status).toBeLessThan(300)
   })
 })

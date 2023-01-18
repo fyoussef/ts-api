@@ -1,7 +1,7 @@
 import { api } from "../../src/utils/axios"
 
 describe('Test schedule route', () => {
-  let barber_id = 'a92d4389-8a32-4a63-8340-a626da4fe430'
+  let barber_id: string
 
   it('should create an schedule to barber', async () => {
 
