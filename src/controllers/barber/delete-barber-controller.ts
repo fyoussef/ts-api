@@ -14,7 +14,7 @@ export class DeleteBarberController {
 
     await deleteBarberUseCase.execute(id)
 
-    return res.status(204).json({
+    return res.json({
       msg: 'Barber has been deleted'
     })
   }
