@@ -4,4 +4,6 @@ export class User {
   constructor(
     private userDTO: UserDTO
   ) {}
+
+  validate() {}
 }
