@@ -32,14 +32,14 @@ export class UserValidation {
   }
 
   validatePassword(): UserValidationResponse {
-    if (this.userDTO.name.length < 8) {
+    if (this.userDTO.password.length < 8) {
       throw new HttpResponse().badRequest(new UserPasswordException())
     }
     return true
   }
 
   validatePhone(): UserValidationResponse {
-    if (this.userDTO.name.length < 13) {
+    if (this.userDTO.phone.length < 11) {
       throw new HttpResponse().badRequest(new UserPhoneException())
     }
     return true
