@@ -1,5 +1,5 @@
 import { addMinutes, format, isEqual } from 'date-fns'
-import pt from "date-fns/locale/pt-BR";
+import pt from 'date-fns/locale/pt-BR'
 import { NextFunction, Request, Response, Router } from 'express'
 import {
   createBarberController,
@@ -13,8 +13,6 @@ import {
   getSchedulesController,
   updateBarberController
 } from './controllers'
-import { Schedule } from './domain/entities/schedule';
-import { prisma } from './infra/db/prismaClient'
 
 const routes = Router()
 
