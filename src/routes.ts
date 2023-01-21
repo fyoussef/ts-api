@@ -2,6 +2,7 @@ import { addMinutes, format, isEqual } from 'date-fns'
 import pt from 'date-fns/locale/pt-BR'
 import { NextFunction, Request, Response, Router } from 'express'
 import {
+  authenticateUserController,
   createBarberController,
   createScheduleController,
   createUserController,
@@ -32,5 +33,7 @@ routes.delete('/schedules/:barber_id', deleteScheduleController.handle)
 
 routes.post('/user', createUserController.handle)
 routes.delete('/user/:id', deleteUserController.handle)
+
+routes.post('/user/authenticate', authenticateUserController.handle)
 
 export { routes }
