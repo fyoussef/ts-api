@@ -3,10 +3,7 @@ import {
   AuthenticateUser,
   AuthenticateUserContract
 } from '../../../domain/contracts/user/authenticate-user-contract'
-import {
-  comparePassword,
-  hashPassword
-} from '../../../utils/helpers/hashPassword'
+import { comparePassword } from '../../../utils/helpers/hashPassword'
 import jwt from 'jsonwebtoken'
 
 export class AuthenticateUserRepository implements AuthenticateUserContract {
@@ -24,6 +21,7 @@ export class AuthenticateUserRepository implements AuthenticateUserContract {
     if (!user) {
       throw new Error('User not found')
     }
+
     const passwordMatch = await comparePassword(user?.password, params.password)
 
     if (passwordMatch) {
