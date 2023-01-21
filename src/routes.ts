@@ -16,14 +16,6 @@ import {
 
 const routes = Router()
 
-function validateBarberId(req: Request, res: Response, next: NextFunction) {
-  const id = req.params.id
-  if (!id) {
-    throw new Error('O id é obrigatório')
-  }
-  next()
-}
-
 routes.get('/', (req, res) => {
   return res.status(200).json({ msg: 'RODANDOO' })
 })
