@@ -4,7 +4,6 @@ import bcrypt from 'bcrypt'
 import { CreateUserRepository } from '../../infra/repository/user/create-user-repository'
 import { prisma } from '../../infra/db/prismaClient'
 import { CreateUserUseCase } from '../../usecase/user/create-user-usecase'
-import { HttpResponseFormat } from '../../utils/helpers/http-response'
 
 export class CreateUserController {
   async handle(req: Request, res: Response) {
