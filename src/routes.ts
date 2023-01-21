@@ -1,6 +1,4 @@
-import { addMinutes, format, isEqual } from 'date-fns'
-import pt from 'date-fns/locale/pt-BR'
-import { NextFunction, Request, Response, Router } from 'express'
+import { Router } from 'express'
 import {
   authenticateUserController,
   createBarberController,
