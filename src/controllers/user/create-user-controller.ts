@@ -1,9 +1,10 @@
-import { Request, Response } from "express";
-import { UserDTO } from "../../dto/user/user-dto";
+import { Request, Response } from 'express'
+import { UserDTO } from '../../dto/user/user-dto'
 import bcrypt from 'bcrypt'
-import { CreateUserRepository } from "../../infra/repository/user/create-user-repository";
-import { prisma } from "../../infra/db/prismaClient";
-import { CreateUserUseCase } from "../../usecase/user/create-user-usecase";
+import { CreateUserRepository } from '../../infra/repository/user/create-user-repository'
+import { prisma } from '../../infra/db/prismaClient'
+import { CreateUserUseCase } from '../../usecase/user/create-user-usecase'
+import { HttpResponseFormat } from '../../utils/helpers/http-response'
 
 export class CreateUserController {
   async handle(req: Request, res: Response) {
@@ -14,14 +15,17 @@ export class CreateUserController {
     const createUserRepo = new CreateUserRepository(prisma)
     const createUserUseCase = new CreateUserUseCase(createUserRepo)
 
-    const user = await createUserUseCase.execute({
-      email,
-      name,
-      phone,
-      password: hash
-    })
+    try {
+      const user = await createUserUseCase.execute({
+        email,
+        name,
+        phone,
+        password: hash
+      })
 
-    return res.status(201).json({user})
-
+      return res.status(201).json({ user })
+    } catch (error: any) {
+      return res.status(error.statusCode).json(error.body)
+    }
   }
 }
