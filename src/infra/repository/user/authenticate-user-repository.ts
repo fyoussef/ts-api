@@ -38,7 +38,7 @@ export class AuthenticateUserRepository implements AuthenticateUserContract {
       )
       return { token }
     } else {
-      throw new Error('Error')
+      throw new Error('User data is invalid')
     }
   }
 }
