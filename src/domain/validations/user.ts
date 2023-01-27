@@ -24,7 +24,6 @@ export class UserValidation {
     const email = this.userDTO.email
     const reg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     const valid = reg.test(email)
-
     if (!valid || !email) {
       throw new HttpResponse().badRequest(new UserEmailException())
     }

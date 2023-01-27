@@ -17,7 +17,6 @@ export class CreateUserUseCase {
     userDTO: UserDTO
   ): Promise<UserOmitPassword | UserValidationResponse> {
     const isValid = new UserEntity(userDTO).validate()
-
     if (!isValid) {
       return isValid
     }
