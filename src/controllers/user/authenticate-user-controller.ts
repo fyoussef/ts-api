@@ -12,11 +12,15 @@ export class AuthenticateUserController {
       authenticateUserRepo
     )
 
-    const token = await authenticateUserUseCase.execute({
-      email,
-      password
-    })
+    try {
+      const token = await authenticateUserUseCase.execute({
+        email,
+        password
+      })
 
-    return res.json(token)
+      return res.json(token)
+    } catch (error: any) {
+      return res.status(error.statusCode).json(error.body)
+    }
   }
 }

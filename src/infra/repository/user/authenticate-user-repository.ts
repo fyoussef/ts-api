@@ -5,6 +5,7 @@ import {
 } from '../../../domain/contracts/user/authenticate-user-contract'
 import { comparePassword } from '../../../utils/helpers/hashPassword'
 import jwt from 'jsonwebtoken'
+import { HttpResponse } from '../../../utils/helpers/http-response'
 
 export class AuthenticateUserRepository implements AuthenticateUserContract {
   constructor(private readonly prisma: PrismaClient) {}
@@ -19,7 +20,7 @@ export class AuthenticateUserRepository implements AuthenticateUserContract {
     })
 
     if (!user) {
-      throw new Error('User not found')
+      throw new HttpResponse().badRequest(new Error('Credenciais inválidas'))
     }
 
     const passwordMatch = await comparePassword(user?.password, params.password)
@@ -38,7 +39,7 @@ export class AuthenticateUserRepository implements AuthenticateUserContract {
       )
       return { token }
     } else {
-      throw new Error('User data is invalid')
+      throw new HttpResponse().badRequest(new Error('Credenciais inválidas'))
     }
   }
 }
