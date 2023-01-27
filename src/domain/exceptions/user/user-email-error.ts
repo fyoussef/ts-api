@@ -1,6 +1,6 @@
 export class UserEmailException extends Error {
   constructor() {
-    super('user email is invalid')
+    super('Email inválido')
     this.name = 'UserEmailException'
   }
 }
