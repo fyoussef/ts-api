@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
-import { prisma } from '../../infra/db/prismaClient'
-import { AuthenticateUserRepository } from '../../infra/repository/user/authenticate-user-repository'
-import { AuthenticateUserUseCase } from '../../usecase/user/authenticate-user-usecase'
+import { prisma } from '../../../infra/db/prismaClient'
+import { AuthenticateUserRepository } from '../../../infra/repository/user/authenticate-user-repository'
+import { AuthenticateUserUseCase } from '../../../usecase/user/authenticate-user-usecase'
 
 export class AuthenticateUserController {
   async handle(req: Request, res: Response) {

@@ -1,9 +1,9 @@
 import { Request, Response } from 'express'
-import { UserDTO } from '../../dto/user/user-dto'
+import { UserDTO } from '../../../dto/user/user-dto'
 import bcrypt from 'bcrypt'
-import { CreateUserRepository } from '../../infra/repository/user/create-user-repository'
-import { prisma } from '../../infra/db/prismaClient'
-import { CreateUserUseCase } from '../../usecase/user/create-user-usecase'
+import { CreateUserRepository } from '../../../infra/repository/user/create-user-repository'
+import { prisma } from '../../../infra/db/prismaClient'
+import { CreateUserUseCase } from '../../../usecase/user/create-user-usecase'
 
 export class CreateUserController {
   async handle(req: Request, res: Response) {

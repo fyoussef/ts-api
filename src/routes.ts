@@ -11,12 +11,12 @@ import {
   getBarbersController,
   getSchedulesController,
   updateBarberController
-} from './controllers'
+} from './presentation/controllers'
 
 const routes = Router()
 
 routes.get('/', (req, res) => {
-  return res.status(200).json({ msg: 'RODANDOO' })
+  return res.status(200).json({ msg: 'RODANDOO', headers: req.headers })
 })
 
 routes.get('/barber', getBarbersController.handle)

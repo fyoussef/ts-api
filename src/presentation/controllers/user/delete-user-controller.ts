@@ -1,10 +1,9 @@
-import { Request, Response } from "express";
-import { prisma } from "../../infra/db/prismaClient";
-import { DeleteUserRepository } from "../../infra/repository/user/delete-user-repository";
-import { DeleteUserUseCase } from "../../usecase/user/delete-user-usecase";
+import { Request, Response } from 'express'
+import { prisma } from '../../../infra/db/prismaClient'
+import { DeleteUserRepository } from '../../../infra/repository/user/delete-user-repository'
+import { DeleteUserUseCase } from '../../../usecase/user/delete-user-usecase'
 
 export class DeleteUserController {
-
   async handle(req: Request, res: Response) {
     const { id } = req.params
 
