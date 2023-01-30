@@ -6,6 +6,7 @@ import {
 import { comparePassword } from '../../../utils/helpers/hashPassword'
 import jwt from 'jsonwebtoken'
 import { HttpResponse } from '../../../utils/helpers/http-response'
+import { randomUUID } from 'crypto'
 
 export class AuthenticateUserRepository implements AuthenticateUserContract {
   constructor(private readonly prisma: PrismaClient) {}
@@ -28,6 +29,7 @@ export class AuthenticateUserRepository implements AuthenticateUserContract {
     if (passwordMatch) {
       const token = jwt.sign(
         {
+          id: user.id,
           name: user.name,
           email: user.email,
           phone: user.phone
@@ -37,7 +39,21 @@ export class AuthenticateUserRepository implements AuthenticateUserContract {
           expiresIn: '1h'
         }
       )
-      return { token }
+
+      let expiredAt = new Date()
+
+      const oneDayInterval = 60 * 60 * 24 // 1 day
+      expiredAt.setSeconds(expiredAt.getSeconds() + oneDayInterval)
+
+      const refreshToken = await this.prisma.refreshToken.create({
+        data: {
+          userId: user.id,
+          token: randomUUID(),
+          expiryDate: expiredAt
+        }
+      })
+
+      return { token, refreshToken: refreshToken.token }
     } else {
       throw new HttpResponse().badRequest(new Error('Credenciais inválidas'))
     }
