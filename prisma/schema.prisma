@@ -28,6 +28,8 @@ model RefreshToken {
 
   userId String
   user   User   @relation(fields: [userId], references: [id])
+
+  @@map("refresh_token")
 }
 
 model Barber {
