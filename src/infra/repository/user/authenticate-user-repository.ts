@@ -34,7 +34,7 @@ export class AuthenticateUserRepository implements AuthenticateUserContract {
         },
         String(process.env.JWT_SUPER_SECRET),
         {
-          expiresIn: '15m'
+          expiresIn: '1h'
         }
       )
       return { token }
