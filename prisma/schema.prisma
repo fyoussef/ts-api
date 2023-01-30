@@ -11,13 +11,23 @@ datasource db {
 }
 
 model User {
-  id String @id @default(uuid())
-  name String
-  email String @unique
-  phone String
-  password String
+  id           String         @id @default(uuid())
+  name         String
+  email        String         @unique
+  phone        String
+  password     String
+  RefreshToken RefreshToken[]
 
   @@map("user")
+}
+
+model RefreshToken {
+  id         String   @id @default(uuid())
+  token      String
+  expiryDate DateTime
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
 }
 
 model Barber {
