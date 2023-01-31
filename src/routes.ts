@@ -12,8 +12,11 @@ import {
   getSchedulesController,
   updateBarberController
 } from './presentation/controllers'
+import { VerifyToken } from './presentation/middlewares/verify-token'
 
 const routes = Router()
+
+const middleware = new VerifyToken()
 
 routes.get('/', (req, res) => {
   return res.status(200).json({ msg: 'RODANDOO', headers: req.headers })
@@ -31,6 +34,8 @@ routes.delete('/schedules/:barber_id', deleteScheduleController.handle)
 
 routes.post('/user', createUserController.handle)
 routes.delete('/user/:id', deleteUserController.handle)
+
+routes.post('/user/refreshToken/:id', middleware.handle)
 
 routes.post('/user/authenticate', authenticateUserController.handle)
 
