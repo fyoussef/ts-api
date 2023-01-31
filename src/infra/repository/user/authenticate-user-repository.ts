@@ -7,6 +7,7 @@ import { comparePassword } from '../../../utils/helpers/hashPassword'
 import jwt from 'jsonwebtoken'
 import { HttpResponse } from '../../../utils/helpers/http-response'
 import { randomUUID } from 'crypto'
+import { add, parseISO } from 'date-fns'
 
 export class AuthenticateUserRepository implements AuthenticateUserContract {
   constructor(private readonly prisma: PrismaClient) {}
@@ -52,6 +53,17 @@ export class AuthenticateUserRepository implements AuthenticateUserContract {
           expiresIn: '1d'
         }
       )
+
+      // save refresh token
+      await this.prisma.refreshToken.create({
+        data: {
+          expiryDate: add(new Date(), {
+            days: 1
+          }),
+          token: refreshToken,
+          userId: user.id
+        }
+      })
 
       return { token, refreshToken }
     } else {
