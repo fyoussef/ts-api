@@ -11,11 +11,11 @@ export class AuthenticateUserUseCase {
   async execute(
     params: AuthenticateUser.Data
   ): Promise<AuthenticateUser.Result> {
-    const token = await this.authenticateUserRepo.authenticate({
+    const result = await this.authenticateUserRepo.authenticate({
       email: params.email,
       password: params.password
     })
 
-    return token
+    return result
   }
 }
