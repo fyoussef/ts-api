@@ -11,7 +11,6 @@ export namespace AuthenticateUser {
   export type Result =
     | {
         token: string
-        refreshToken: string
       }
     | Error
 }
