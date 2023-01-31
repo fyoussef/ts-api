@@ -40,20 +40,20 @@ export class AuthenticateUserRepository implements AuthenticateUserContract {
         }
       )
 
-      let expiredAt = new Date()
-
-      const oneDayInterval = 60 * 60 * 24 // 1 day
-      expiredAt.setSeconds(expiredAt.getSeconds() + oneDayInterval)
-
-      const refreshToken = await this.prisma.refreshToken.create({
-        data: {
-          userId: user.id,
-          token: randomUUID(),
-          expiryDate: expiredAt
+      const refreshToken = jwt.sign(
+        {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          phone: user.phone
+        },
+        String(process.env.JWT_SUPER_SECRET),
+        {
+          expiresIn: '1d'
         }
-      })
+      )
 
-      return { token, refreshToken: refreshToken.token }
+      return { token, refreshToken }
     } else {
       throw new HttpResponse().badRequest(new Error('Credenciais inválidas'))
     }
