@@ -4,11 +4,11 @@ import jwt from 'jsonwebtoken'
 
 export class VerifyToken {
   async handle(req: Request, res: Response) {
-    const { userId } = req.body
+    const { id } = req.params
 
     const refreshToken = await prisma.refreshToken.findFirst({
       where: {
-        userId
+        userId: id
       }
     })
 
@@ -20,7 +20,7 @@ export class VerifyToken {
 
     const user = await prisma.user.findFirst({
       where: {
-        id: userId
+        id
       }
     })
 
