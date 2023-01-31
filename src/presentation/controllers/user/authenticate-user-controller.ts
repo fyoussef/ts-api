@@ -13,12 +13,17 @@ export class AuthenticateUserController {
     )
 
     try {
-      const token = await authenticateUserUseCase.execute({
+      const result = await authenticateUserUseCase.execute({
         email,
         password
       })
 
-      return res.json(token)
+      if (result instanceof Error) return
+
+      return res.json({
+        token: result.token,
+        refreshToken: result.refreshToken
+      })
     } catch (error: any) {
       return res.status(error.statusCode).json(error.body)
     }
