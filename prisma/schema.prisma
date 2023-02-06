@@ -10,13 +10,21 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Roles {
+  ADMIN
+  CLIENT
+  BARBER
+}
+
 model User {
   id           String         @id @default(uuid())
   name         String
   email        String         @unique
   phone        String
   password     String
+  role         Roles          @default(CLIENT)
   RefreshToken RefreshToken[]
+  Barber       Barber[]
 
   @@map("user")
 }
@@ -35,6 +43,8 @@ model RefreshToken {
 model Barber {
   id               String             @id @default(uuid())
   name             String
+  userId           String
+  user             User               @relation(fields: [userId], references: [id])
   Barber_Schedules Barber_Schedules[]
 
   @@map("barber")
