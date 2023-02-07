@@ -7,6 +7,7 @@ import { comparePassword } from '../../../utils/helpers/hashPassword'
 import jwt from 'jsonwebtoken'
 import { HttpResponse } from '../../../utils/helpers/http-response'
 import { add } from 'date-fns'
+import { generateJtwAndRefreshtoken } from '../../../utils/helpers/generateJwtAndRefreshtoken'
 
 export class AuthenticateUserRepository implements AuthenticateUserContract {
   constructor(private readonly prisma: PrismaClient) {}
@@ -27,31 +28,7 @@ export class AuthenticateUserRepository implements AuthenticateUserContract {
     const passwordMatch = await comparePassword(user?.password, params.password)
 
     if (passwordMatch) {
-      const token = jwt.sign(
-        {
-          id: user.id,
-          name: user.name,
-          email: user.email,
-          phone: user.phone
-        },
-        String(process.env.JWT_SUPER_SECRET),
-        {
-          expiresIn: 10
-        }
-      )
-
-      const refreshToken = jwt.sign(
-        {
-          id: user.id,
-          name: user.name,
-          email: user.email,
-          phone: user.phone
-        },
-        String(process.env.JWT_SUPER_SECRET),
-        {
-          expiresIn: '1d'
-        }
-      )
+      const { refreshToken, token } = generateJtwAndRefreshtoken(user)
 
       // save refresh token
       await this.prisma.refreshToken.create({
