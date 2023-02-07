@@ -6,8 +6,7 @@ import {
 import { comparePassword } from '../../../utils/helpers/hashPassword'
 import jwt from 'jsonwebtoken'
 import { HttpResponse } from '../../../utils/helpers/http-response'
-import { randomUUID } from 'crypto'
-import { add, parseISO } from 'date-fns'
+import { add } from 'date-fns'
 
 export class AuthenticateUserRepository implements AuthenticateUserContract {
   constructor(private readonly prisma: PrismaClient) {}
@@ -37,7 +36,7 @@ export class AuthenticateUserRepository implements AuthenticateUserContract {
         },
         String(process.env.JWT_SUPER_SECRET),
         {
-          expiresIn: '1h'
+          expiresIn: 10
         }
       )
 

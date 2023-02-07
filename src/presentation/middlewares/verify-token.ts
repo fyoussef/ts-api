@@ -1,58 +1,32 @@
-import { Request, Response } from 'express'
-import { prisma } from '../../infra/db/prismaClient'
+import { NextFunction, Request, Response } from 'express'
 import jwt from 'jsonwebtoken'
 
 export class VerifyToken {
-  async handle(req: Request, res: Response) {
-    const { id } = req.params
+  async handle(req: Request, res: Response, next: NextFunction) {
+    const { authorization } = req.headers
 
-    const refreshToken = await prisma.refreshToken.findFirst({
-      where: {
-        userId: id
-      }
-    })
-
-    if (!refreshToken) {
-      return res.status(403).json({
-        message: 'Este usuário não foi encontrado'
+    if (!authorization) {
+      return res.status(401).json({
+        code: 'token.invalid'
       })
     }
 
-    const user = await prisma.user.findFirst({
-      where: {
-        id
-      }
-    })
+    const [, token] = authorization?.split(' ')
 
-    if (!user) {
-      return res.status(400).json({
-        message: 'Este usuário não foi encontrado'
+    if (!token) {
+      return res.status(401).json({
+        code: 'token.invalid'
       })
     }
 
-    const handleToken = jwt.verify(
-      refreshToken.token,
-      String(process.env.JWT_SUPER_SECRET),
-      (err, decode) => {
-        if (err) {
-          return res.status(406).json({ message: 'Faça login novamente' })
-        }
+    try {
+      const decode = jwt.verify(token, String(process.env.JWT_SUPER_SECRET))
 
-        const token = jwt.sign(
-          {
-            id: user.id,
-            name: user.name,
-            email: user.email,
-            phone: user.phone
-          },
-          String(process.env.JWT_SUPER_SECRET),
-          {
-            expiresIn: '1h'
-          }
-        )
-
-        return res.status(200).json({ token })
-      }
-    )
+      return next()
+    } catch (error) {
+      return res.status(401).json({
+        code: 'token.expired'
+      })
+    }
   }
 }
