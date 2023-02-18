@@ -38,8 +38,6 @@ routes.delete('/schedules/:barber_id', deleteScheduleController.handle)
 routes.post('/user', createUserController.handle)
 routes.delete('/user/:id', deleteUserController.handle)
 
-/* routes.post('/user/refreshToken/:id', middleware.handle) */
-
 routes.post('/refresh/:id', middleware.handle, async (req, res) => {
   const { id } = req.params
   const { refreshToken: oldRefreshtoken } = req.body
@@ -56,7 +54,7 @@ routes.post('/refresh/:id', middleware.handle, async (req, res) => {
     })
   }
 
-  const isTokenValid = new CheckRefreshtokenIsValid(prisma).execute(
+  const isTokenValid = await new CheckRefreshtokenIsValid(prisma).execute(
     oldRefreshtoken
   )
   if (!isTokenValid) {
@@ -67,10 +65,10 @@ routes.post('/refresh/:id', middleware.handle, async (req, res) => {
 
   const { refreshToken, token } = generateJtwAndRefreshtoken(user)
 
-  return {
+  return res.status(201).json({
     refreshToken,
     token
-  }
+  })
 })
 
 routes.post('/user/authenticate', authenticateUserController.handle)
