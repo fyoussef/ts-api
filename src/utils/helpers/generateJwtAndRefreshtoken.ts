@@ -16,7 +16,7 @@ export const generateJtwAndRefreshtoken = (
     },
     String(process.env.JWT_SUPER_SECRET),
     {
-      expiresIn: 10
+      expiresIn: '1d'
     }
   )
 
