@@ -5,12 +5,16 @@ import { CreateBarberUseCase } from '../../../usecase/barber/create-barber-useca
 
 export class CreateBarberController {
   async handle(req: Request, res: Response) {
-    const { name } = req.body
+    const { name, userId } = req.body
+
+    if (!name || !userId) {
+      throw new Error('Data invalid to create barber')
+    }
 
     const createBarberRepo = new CreateBarberRepository(prisma)
     const createBarberUseCase = new CreateBarberUseCase(createBarberRepo)
 
-    const barber = await createBarberUseCase.execute({ name })
+    const barber = await createBarberUseCase.execute({ userId, name })
 
     return res.status(201).json(barber)
   }
