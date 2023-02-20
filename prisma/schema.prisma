@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -25,6 +22,7 @@ model User {
   role         Roles          @default(CLIENT)
   RefreshToken RefreshToken[]
   Barber       Barber[]
+  Client       Client?
 
   @@map("user")
 }
@@ -46,6 +44,7 @@ model Barber {
   userId           String             @unique
   user             User               @relation(fields: [userId], references: [id])
   Barber_Schedules Barber_Schedules[]
+  Client_Schedules Client_Schedules[]
 
   @@map("barber")
 }
@@ -56,4 +55,24 @@ model Barber_Schedules {
   Barber    Barber @relation(fields: [barber_id], references: [id])
 
   @@map("barber_schedules")
+}
+
+model Client_Schedules {
+  id        String @id @default(uuid())
+  clientId  String
+  Client    Client @relation(fields: [clientId], references: [id])
+  barber_id String
+  Barber    Barber @relation(fields: [barber_id], references: [id])
+
+  scheduled DateTime
+}
+
+model Client {
+  id               String             @id @default(uuid())
+  name             String
+  userId           String             @unique
+  user             User               @relation(fields: [userId], references: [id])
+  Client_Schedules Client_Schedules[]
+
+  @@map("clients")
 }
