@@ -5,12 +5,12 @@ import { GetSchedulesUseCase } from '../../../usecase/schedule/get-schedules-use
 
 export class GetScheduleController {
   async handle(req: Request, res: Response) {
-    const { barber_id } = req.params
+    const userId = req.body.userId
 
     const getSchedulesRepo = new GetScheduleRepository(prisma)
     const getScheduleUseCase = new GetSchedulesUseCase(getSchedulesRepo)
 
-    const schedules = await getScheduleUseCase.execute(barber_id)
+    const schedules = await getScheduleUseCase.execute(userId)
 
     return res.status(200).json({
       schedules

@@ -1,5 +1,5 @@
-import { Barber_Schedules } from "@prisma/client";
+import { Barber_Schedules } from '@prisma/client'
 
 export interface GetScheduleContract {
-	get(barber_id: string): Promise<Barber_Schedules []>
+  get(userId: string): Promise<Barber_Schedules[]>
 }

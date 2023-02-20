@@ -43,7 +43,7 @@ model RefreshToken {
 model Barber {
   id               String             @id @default(uuid())
   name             String
-  userId           String
+  userId           String             @unique
   user             User               @relation(fields: [userId], references: [id])
   Barber_Schedules Barber_Schedules[]
 

@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
-import jwt from 'jsonwebtoken'
+import { decode, verify } from 'jsonwebtoken'
 
 export class VerifyToken {
   async handle(req: Request, res: Response, next: NextFunction) {
@@ -20,7 +20,13 @@ export class VerifyToken {
     }
 
     try {
-      const decode = jwt.verify(token, String(process.env.JWT_SUPER_SECRET))
+      verify(token, String(process.env.JWT_SUPER_SECRET))
+
+      const userId = decode(token, {
+        json: true
+      })?.id
+
+      req.body.userId = userId
 
       return next()
     } catch (error) {

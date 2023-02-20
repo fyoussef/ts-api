@@ -31,7 +31,7 @@ routes.post('/barber', createBarberController.handle)
 routes.put('/barber/:id', updateBarberController.handle)
 routes.delete('/barber/:id', deleteBarberController.handle)
 
-routes.get('/schedules/:barber_id', getSchedulesController.handle)
+routes.get('/schedules', middleware.handle, getSchedulesController.handle)
 routes.post('/schedules', createScheduleController.handle)
 routes.delete('/schedules/:barber_id', deleteScheduleController.handle)
 
