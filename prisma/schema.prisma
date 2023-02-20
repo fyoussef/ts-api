@@ -22,7 +22,6 @@ model User {
   role         Roles          @default(CLIENT)
   RefreshToken RefreshToken[]
   Barber       Barber[]
-  Client       Client?
 
   @@map("user")
 }
@@ -58,20 +57,18 @@ model Barber_Schedules {
 }
 
 model Client_Schedules {
-  id        String @id @default(uuid())
-  clientId  String
-  Client    Client @relation(fields: [clientId], references: [id])
-  barber_id String
-  Barber    Barber @relation(fields: [barber_id], references: [id])
-
-  scheduled DateTime
+  id          String   @id @default(uuid())
+  clientId    String
+  Client      Client   @relation(fields: [clientId], references: [id])
+  barber_id   String
+  Barber      Barber   @relation(fields: [barber_id], references: [id])
+  scheduledAt DateTime
 }
 
 model Client {
   id               String             @id @default(uuid())
   name             String
-  userId           String             @unique
-  user             User               @relation(fields: [userId], references: [id])
+  phone            String?
   Client_Schedules Client_Schedules[]
 
   @@map("clients")
