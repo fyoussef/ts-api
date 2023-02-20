@@ -2,6 +2,7 @@ import { Router } from 'express'
 import { prisma } from './infra/db/prismaClient'
 import {
   authenticateUserController,
+  clientSchedule,
   createBarberController,
   createScheduleController,
   createUserController,
@@ -73,6 +74,6 @@ routes.post('/refresh/:id', middleware.handle, async (req, res) => {
 
 routes.post('/user/authenticate', authenticateUserController.handle)
 
-routes.post('/schedule_client')
+routes.post('/schedule_client', clientSchedule.handle)
 
 export { routes }

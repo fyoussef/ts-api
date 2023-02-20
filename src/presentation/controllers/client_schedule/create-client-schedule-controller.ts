@@ -3,7 +3,7 @@ import { prisma } from '../../../infra/db/prismaClient'
 import { CreateClientScheduleRepository } from '../../../infra/repository/client_schedule/create-client-schedule-repository'
 import { ClientScheduleUseCase } from '../../../usecase/client_schedule/client-schedule-usecase'
 
-export class CreateClientSchedule {
+export class CreateClientScheduleController {
   async handle(req: Request, res: Response) {
     const { name, phone, scheduledAt, barber_id } = req.body
 

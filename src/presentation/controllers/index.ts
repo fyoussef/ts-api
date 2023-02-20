@@ -3,6 +3,7 @@ import { DeleteBarberController } from './barber/delete-barber-controller'
 import { GetBarberController } from './barber/get-barber-controller'
 import { GetBarbersController } from './barber/get-barbers-controller'
 import { UpdateBarberController } from './barber/update-barber-controller'
+import { CreateClientScheduleController } from './client_schedule/create-client-schedule-controller'
 import { CreateScheduleController } from './schedules/create-schedules-controller'
 import { DeleteScheduleController } from './schedules/delete-schedules-controller'
 import { GetScheduleController } from './schedules/get-schedules-controller'
@@ -23,3 +24,5 @@ export const deleteScheduleController = new DeleteScheduleController()
 export const createUserController = new CreateUserController()
 export const deleteUserController = new DeleteUserController()
 export const authenticateUserController = new AuthenticateUserController()
+
+export const clientSchedule = new CreateClientScheduleController()
