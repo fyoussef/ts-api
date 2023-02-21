@@ -74,6 +74,6 @@ routes.post('/refresh/:id', middleware.handle, async (req, res) => {
 
 routes.post('/user/authenticate', authenticateUserController.handle)
 
-routes.post('/schedule_client', clientSchedule.handle)
+routes.post('/schedule_client', middleware.handle, clientSchedule.handle)
 
 export { routes }

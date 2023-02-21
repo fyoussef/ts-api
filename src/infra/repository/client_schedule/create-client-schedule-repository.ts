@@ -22,10 +22,20 @@ export class CreateClientScheduleRepository implements CreateClientSchedule {
       })
     }
 
+    const barber = await this.prisma.barber.findFirst({
+      where: {
+        userId: param.userId
+      }
+    })
+
+    if (!barber) {
+      throw new Error('Barber not found')
+    }
+
     const clientSchedule = await this.prisma.client_Schedules.create({
       data: {
         scheduledAt: param.scheduledAt,
-        barber_id: param.barber_id,
+        barber_id: barber.id,
         clientId: client.id
       }
     })
