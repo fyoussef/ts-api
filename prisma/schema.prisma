@@ -63,6 +63,8 @@ model Client_Schedules {
   barber_id   String
   Barber      Barber   @relation(fields: [barber_id], references: [id])
   scheduledAt DateTime
+
+  @@map("client_schedules")
 }
 
 model Client {
