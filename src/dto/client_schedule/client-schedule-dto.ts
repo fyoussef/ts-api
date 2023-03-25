@@ -3,4 +3,5 @@ export interface CreateScheduleClientDTO {
   phone?: string
   scheduledAt: string
   userId: string
+  services: string[]
 }

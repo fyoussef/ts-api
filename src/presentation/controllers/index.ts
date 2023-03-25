@@ -1,4 +1,5 @@
 import { CreateBarberController } from './barber/create-barber-controller'
+import { CreateBarberServiceController } from './barber/create-barber-service-controller'
 import { DeleteBarberController } from './barber/delete-barber-controller'
 import { GetBarberController } from './barber/get-barber-controller'
 import { GetBarbersController } from './barber/get-barbers-controller'
@@ -26,3 +27,5 @@ export const deleteUserController = new DeleteUserController()
 export const authenticateUserController = new AuthenticateUserController()
 
 export const clientSchedule = new CreateClientScheduleController()
+
+export const createBarberService = new CreateBarberServiceController()

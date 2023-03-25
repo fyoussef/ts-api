@@ -44,6 +44,7 @@ model Barber {
   user             User               @relation(fields: [userId], references: [id])
   Barber_Schedules Barber_Schedules[]
   Client_Schedules Client_Schedules[]
+  Barber_Services  Barber_Services[]
 
   @@map("barber")
 }
@@ -74,4 +75,23 @@ model Client {
   Client_Schedules Client_Schedules[]
 
   @@map("clients")
+}
+
+model Services {
+  id              String            @id @default(uuid())
+  name            String
+  Barber_Services Barber_Services[]
+
+  @@map("services")
+}
+
+model Barber_Services {
+  id        String   @id @default(uuid())
+  barberId  String
+  barber    Barber   @relation(fields: [barberId], references: [id])
+  serviceId String
+  services  Services @relation(fields: [serviceId], references: [id])
+  duration  Int
+
+  @@map("barber_services")
 }

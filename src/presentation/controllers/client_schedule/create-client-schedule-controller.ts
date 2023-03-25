@@ -5,13 +5,13 @@ import { ClientScheduleUseCase } from '../../../usecase/client_schedule/client-s
 
 export class CreateClientScheduleController {
   async handle(req: Request, res: Response) {
-    const { name, phone, scheduledAt, userId } = req.body
+    const { name, phone, scheduledAt, services, userId } = req.body
 
     const repo = new CreateClientScheduleRepository(prisma)
     const useCase = new ClientScheduleUseCase(repo)
 
     try {
-      await useCase.execute({ name, phone, scheduledAt, userId })
+      await useCase.execute({ name, phone, scheduledAt, userId, services })
 
       return res.status(201).json({
         message: 'Agendamento realizado com sucesso'

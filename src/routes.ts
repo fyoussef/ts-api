@@ -4,6 +4,7 @@ import {
   authenticateUserController,
   clientSchedule,
   createBarberController,
+  createBarberService,
   createScheduleController,
   createUserController,
   deleteBarberController,
@@ -39,8 +40,9 @@ routes.delete('/schedules/:barber_id', deleteScheduleController.handle)
 routes.post('/user', createUserController.handle)
 routes.delete('/user/:id', deleteUserController.handle)
 
-routes.post('/refresh/:id', middleware.handle, async (req, res) => {
-  const { id } = req.params
+routes.post('/refresh', middleware.handle, async (req, res) => {
+  const id = req.body.userId
+
   const { refreshToken: oldRefreshtoken } = req.body
 
   const user = await prisma.user.findFirst({
@@ -75,5 +77,7 @@ routes.post('/refresh/:id', middleware.handle, async (req, res) => {
 routes.post('/user/authenticate', authenticateUserController.handle)
 
 routes.post('/schedule_client', middleware.handle, clientSchedule.handle)
+
+routes.post('/barber_services', createBarberService.handle)
 
 export { routes }
